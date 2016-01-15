@@ -1,0 +1,85 @@
+<head>
+    <script src="https://fb.me/react-0.14.6.js"></script>
+    <script src="https://fb.me/react-dom-0.14.6.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.0.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 target">
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<script type="text/jsx">
+    //define a class
+
+    var Badge = React.createClass({
+      render : function() {
+        return <button className="btn btn-primary" type="button">
+          {this.props.title} <span className="badge">{this.props.number}</span>
+        </button>
+      }
+    });
+
+    // nesting
+
+    var Thumbnail = React.createClass({
+      render : function() {
+        return <div class="thumbnail">
+          <img src={this.props.imageUrl} />
+          <div className="caption">
+            <h3>{this.props.header}</h3>
+            <p>{this.props.description}</p>
+            <p>
+              <Badge title={this.props.title} number={this.props.number}/>
+
+            </p>
+          </div>
+        </div>
+      }
+    });
+
+
+    var ThumbnailList = React.createClass({
+      render : function() {
+        var list = this.props.thumbnailData.map(function(thumbnailProps){
+          return <Thumbnail {...thumbnailProps}/>
+        })
+
+        return <div>
+          {list}
+        </div>
+      }
+    });
+
+    var options = {
+      thumbnailData: [{
+        title: "See Tutorials",
+        number: '32',
+        header: 'Learn React',
+        description: 'React is fantastic new library for making fast, dynamic pages. React is fantastic new library for making fast, dynamic pages. React is fantastic new library for making fast, dynamic pages.',
+        imageUrl: 'http://www.programwitherik.com/content/images/2015/12/reactjs.png'
+      }, {
+        title: "See Tutorials",
+        number: '30',
+        header: 'Learn Gulp',
+        description: 'Gulp is fantastic new library for making fast, dynamic pages. Gulp is fantastic new library for making fast, dynamic pages. Gulp is fantastic new library for making fast, dynamic pages.',
+        imageUrl: 'http://devstickers.com/assets/img/pro/jv81.png'
+      }]
+    };
+
+    //render this class
+    var element = React.createElement(ThumbnailList, options);
+
+    //place it in my body tag
+    React.render(element, document.querySelector('.target'));
+</script>
